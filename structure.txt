@@ -1,0 +1,15 @@
+magafaun/
+├── index.html
+├── fossa.html
+├── annual-report.html
+├── about-us.html
+├── projects.html
+├── partners.html
+├── how-to-apply.html
+├── news.html
+└── assets/
+    ├── images/
+    │   └── your-logo.png
+    └── css/
+        └── custom.css
+
