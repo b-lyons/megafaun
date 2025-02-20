@@ -274,3 +274,131 @@ h1 {
   }
 }
 
+/* Video container styling */
+.video-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.video-container h2 {
+  margin-bottom: 2rem;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.video-container .video-intro {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+/* Project styling */
+.project-feature {
+  max-width: 800px;
+  margin: 3rem auto;
+  line-height: 1.8;
+}
+
+.project-feature h2 {
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.project-feature .author {
+  font-weight: 500;
+  margin: 0;
+}
+
+.project-feature .location {
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.project-content p {
+  margin-bottom: 1.5rem;
+}
+
+/* Partners page styling */
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.partner-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.partner-card:hover {
+  transform: translateY(-4px);
+}
+
+.partner-link {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.partner-logo {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+.partner-card h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--primary-color);
+}
+
+.partner-card p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* How to Apply page styling */
+.criteria-section {
+  margin: 3rem 0;
+  max-width: 800px;
+}
+
+.criteria-section h2 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.criteria-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.criteria-section li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.criteria-section li::before {
+  content: "•";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
