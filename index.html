@@ -1,66 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Megafaun.org – Home</title>
-  <meta name="description" content="Homepage for Megafaun.org – Fossa conservation and other wildlife projects." />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Tufte CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tufte-css/tufte-css.min.css" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/custom.css" />
+<meta charset="utf-8" />
+<title>Megafaun.org – Field notes from the edge of extinction</title>
+<meta name="description" content="Megafaun.org promotes the conservation of the natural world through biodiversity, scientific study, and public education — safeguarding endangered animals, plants, and the habitats that hold them." />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: oklch(0.16 0.02 260); }
+  a { color: oklch(0.95 0.015 85); text-decoration: none; }
+  a:hover { color: oklch(0.62 0.14 45); }
+  ::selection { background: oklch(0.62 0.14 45); color: oklch(0.16 0.02 260); }
+
+  /* The design as delivered is desktop-only (fixed multi-column grids, no
+     breakpoints); everything below is an addition on top of it so the nav
+     and layout don't overflow or get crushed on a phone or tablet. Uses
+     !important because the grid/flex rules it's overriding are inline
+     styles, which otherwise always win over a stylesheet rule. */
+  @media (max-width: 900px) {
+    .mf-species { grid-template-columns: repeat(2, 1fr) !important; }
+    .mf-support { grid-template-columns: 1fr !important; }
+    .mf-footer { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .mf-zones { grid-template-columns: 1fr !important; gap: 28px !important; }
+  }
+  @media (max-width: 720px) {
+    .mf-hero { grid-template-columns: 1fr !important; }
+    .mf-hero-copy { padding: 56px 24px !important; }
+    .mf-mission { grid-template-columns: 1fr !important; }
+    .mf-mission > div:first-child { display: none; } /* vertical "01 — MISSION" rail needs a full column to rotate into */
+    .mf-dispatch-row { grid-template-columns: 1fr !important; gap: 8px !important; }
+    .mf-species { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 640px) {
+    .mf-nav { padding: 20px 24px !important; flex-wrap: wrap; gap: 16px; }
+    .mf-nav-links { gap: 20px !important; flex-wrap: wrap; }
+    #mission, #species, #dispatches, #support, #footer { padding-left: 24px !important; padding-right: 24px !important; }
+    #mission > div:nth-child(2), #footer { padding-top: 56px !important; }
+    #species, #dispatches, #support { padding-top: 64px !important; padding-bottom: 64px !important; }
+  }
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="fossa.html">Fossa Info</a></li>
-          <li><a href="annual-report.html">Annual Report</a></li>
-          <li><a href="about-us.html">About Us</a></li>
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="partners.html">Our Partners</a></li>
-          <li><a href="how-to-apply.html">How to Apply</a></li>
-          <li><a href="news.html">News</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
 
-  <main class="site-main">
-    <div class="container">
-      <div class="hero-section">
-        <img src="assets/images/your-logo.png" alt="Megafaun Logo" class="site-logo" />
-        
-        <h1>Welcome to Megafaun.org</h1>
-        <p class="lead">
-          We are dedicated to promoting wildlife conservation efforts worldwide, 
-          with a special focus on the <em>fossa</em> of Madagascar.
-        </p>
+<div style="font-family: 'Newsreader', serif; background: oklch(0.16 0.02 260); color: oklch(0.95 0.015 85); overflow-x: hidden;">
+
+  <!-- NAV -->
+  <div class="mf-nav" style="display:flex; align-items:center; justify-content:space-between; padding:28px 56px; border-bottom:1px solid oklch(0.4 0.02 85 / 0.25);">
+    <a href="index.html" style="display:flex; align-items:center; gap:14px;">
+      <img src="assets/images/logo-mark.jpg" alt="Megafaun mark" style="width:34px; height:34px; object-fit:cover; filter:contrast(1.2);" />
+      <span style="font-family:'IBM Plex Mono', monospace; font-size:14px; letter-spacing:0.14em; font-weight:600; color:oklch(0.95 0.015 85);">MEGAFAUN.ORG</span>
+    </a>
+    <div class="mf-nav-links" style="display:flex; gap:28px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.08em; color:oklch(0.72 0.02 85);">
+      <a href="index.html" style="color:oklch(0.62 0.14 45);">01 · HOME</a>
+      <a href="fossa.html">02 · FOSSA</a>
+      <a href="annual-report.html">03 · REPORT</a>
+      <a href="about-us.html">04 · ABOUT</a>
+      <a href="projects.html">05 · PROJECTS</a>
+      <a href="partners.html">06 · PARTNERS</a>
+      <a href="how-to-apply.html">07 · APPLY</a>
+      <a href="news.html">08 · NEWS</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="mf-hero" style="display:grid; grid-template-columns:1.3fr 1fr; gap:0; border-bottom:1px solid oklch(0.4 0.02 85 / 0.25);">
+    <div class="mf-hero-copy" style="padding:100px 56px 90px; display:flex; flex-direction:column; justify-content:center; gap:36px; border-right:1px solid oklch(0.4 0.02 85 / 0.25);">
+      <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.16em; color:oklch(0.62 0.14 45);">FIELD DISPATCH — EST. 2013 · UK REGISTERED CHARITY</div>
+      <h1 style="margin:0; font-size:clamp(42px,5.5vw,84px); line-height:1.02; font-weight:500; letter-spacing:-0.01em;">Field notes<br/>from the edge<br/>of extinction.</h1>
+      <p style="max-width:520px; font-size:19px; line-height:1.6; color:oklch(0.72 0.02 85); font-weight:400;">Megafaun.org promotes the conservation of the natural world through biodiversity, scientific study, and public education — safeguarding endangered animals, plants, and the habitats that hold them.</p>
+      <div style="display:flex; align-items:center; gap:28px; margin-top:8px;">
+        <a href="#support" style="background:oklch(0.62 0.14 45); color:oklch(0.16 0.02 260); font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.08em; font-weight:600; padding:16px 30px;">DONATE →</a>
+        <a href="#mission" style="font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.08em; color:oklch(0.95 0.015 85); border-bottom:1px solid oklch(0.4 0.02 85 / 0.5); padding-bottom:3px;">READ THE MISSION</a>
+      </div>
+    </div>
+    <div style="position:relative; background:oklch(0.12 0.015 260); display:flex; align-items:center; justify-content:center; padding:40px;">
+      <div style="position:absolute; top:24px; left:24px; font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.14em; color:oklch(0.5 0.02 85);">SPECIMEN PLATE №1</div>
+      <img src="assets/images/logo-mark.jpg" alt="Fossa specimen mark" style="width:78%; max-width:340px; filter:contrast(1.15);" />
+      <div style="position:absolute; bottom:28px; right:28px; font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.12em; color:oklch(0.5 0.02 85); text-align:right;">CRYPTOPROCTA FEROX<br/>“FOSSA”</div>
+      <div style="position:absolute; top:20px; right:20px; width:56px; height:56px; border-radius:50%; overflow:hidden; border:2px solid oklch(0.62 0.14 45);">
+        <img src="assets/images/fossa-mascot.jpg" alt="Field guide mascot" style="width:100%; height:100%; object-fit:cover; object-position:60% 40%; transform:scale(1.6);" />
+      </div>
+    </div>
+  </div>
+
+  <!-- MISSION -->
+  <div id="mission" class="mf-mission" style="display:grid; grid-template-columns:120px 1fr; border-bottom:1px solid oklch(0.4 0.02 85 / 0.25);">
+    <div style="border-right:1px solid oklch(0.4 0.02 85 / 0.25); display:flex; align-items:flex-start; justify-content:center; padding-top:60px;">
+      <span style="writing-mode:vertical-rl; transform:rotate(180deg); font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.16em; color:oklch(0.62 0.14 45);">01 — MISSION</span>
+    </div>
+    <div style="padding:100px 72px; max-width:900px;">
+      <p style="font-family:'Newsreader', serif; font-style:italic; font-weight:500; font-size:clamp(26px,2.6vw,38px); line-height:1.45; margin:0 0 44px; color:oklch(0.95 0.015 85);">"To promote the conservation of the physical and natural environment by advancing biodiversity, and to further public education on conservation — through science, habitat, and the animals themselves."</p>
+      <div class="mf-zones" style="display:grid; grid-template-columns:repeat(3,1fr); gap:40px; margin-top:56px;">
+        <div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; color:oklch(0.62 0.14 45); margin-bottom:10px;">EDUCATION</div>
+          <p style="font-size:15px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0;">Public programs that advance understanding of biodiversity and its stewardship.</p>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; color:oklch(0.58 0.09 145); margin-bottom:10px;">RESEARCH</div>
+          <p style="font-size:15px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0;">Scientific study of endangered species and the ecosystems that sustain them.</p>
+        </div>
+        <div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; color:oklch(0.62 0.14 45); margin-bottom:10px;">HABITAT</div>
+          <p style="font-size:15px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0;">Maintenance of habitats for endangered animals and plants, wild and protected.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPECIES -->
+  <div id="species" style="padding:100px 56px; border-bottom:1px solid oklch(0.4 0.02 85 / 0.25);">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:64px; flex-wrap:wrap; gap:16px;">
+      <h2 style="margin:0; font-family:'Newsreader', serif; font-weight:500; font-size:clamp(30px,3vw,44px);">Specimen Index</h2>
+      <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.12em; color:oklch(0.5 0.02 85);">02 — FOUR SPECIES UNDER ACTIVE STUDY</span>
+    </div>
+    <div class="mf-species" style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:oklch(0.4 0.02 85 / 0.25); border:1px solid oklch(0.4 0.02 85 / 0.25);">
+
+      <div style="background:oklch(0.16 0.02 260); padding:0;">
+        <div style="aspect-ratio:1; background:oklch(0.1 0.01 260); overflow:hidden;">
+          <img src="assets/images/fossa-photo.jpg" alt="A fossa in the wild at Kirindy Forest, Madagascar" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <div style="padding:24px;">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; color:oklch(0.62 0.14 45); letter-spacing:0.1em; margin-bottom:8px;">SPECIMEN NO. 01 · VULNERABLE</div>
+          <div style="font-size:22px; margin-bottom:4px;">Fossa</div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-style:normal; font-size:12px; color:oklch(0.72 0.02 85); margin-bottom:14px; font-style:italic;">Cryptoprocta ferox</div>
+          <p style="font-size:13.5px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0;">Madagascar's largest carnivore, threatened by deforestation across its forest range.</p>
+        </div>
       </div>
 
-      <aside class="donation-card">
-        <h3>Support Our Work</h3>
-        <p>Help us protect wildlife and their habitats</p>
-        <form action="https://buy.stripe.com/YOUR_STRIPE_CHECKOUT_LINK" method="POST">
-          <button type="submit" class="donate-button">Donate Now</button>
-        </form>
-      </aside>
+      <div style="background:oklch(0.16 0.02 260);">
+        <div style="aspect-ratio:1; overflow:hidden;">
+          <img src="assets/images/aye-aye-photo.jpg" alt="An aye-aye at night in Madagascar" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <div style="padding:24px;">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; color:oklch(0.58 0.09 145); letter-spacing:0.1em; margin-bottom:8px;">SPECIMEN NO. 02 · ENDANGERED</div>
+          <div style="font-size:22px; margin-bottom:4px;">Aye-Aye</div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:oklch(0.72 0.02 85); margin-bottom:14px; font-style:italic;">Daubentonia madagascariensis</div>
+          <p style="font-size:13.5px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0;">A nocturnal lemur, often persecuted by superstition despite its ecological role.</p>
+        </div>
+      </div>
 
-      <p class="lead">
-        Explore our site to learn more about our current projects, partnership opportunities,
-        and how you can help support fossa conservation.
-      </p>
-    </div>
-  </main>
+      <div style="background:oklch(0.16 0.02 260);">
+        <div style="aspect-ratio:1; overflow:hidden;">
+          <img src="assets/images/radiated-tortoise-photo.jpg" alt="A radiated tortoise showing its distinctive star-patterned shell" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <div style="padding:24px;">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; color:oklch(0.62 0.14 45); letter-spacing:0.1em; margin-bottom:8px;">SPECIMEN NO. 03 · CRITICALLY ENDANGERED</div>
+          <div style="font-size:22px; margin-bottom:4px;">Radiated Tortoise</div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:oklch(0.72 0.02 85); margin-bottom:14px; font-style:italic;">Astrochelys radiata</div>
+          <p style="font-size:13.5px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0;">Poached heavily for the pet trade; among the most trafficked tortoises on earth.</p>
+        </div>
+      </div>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; 2025 Megafaun.org | All rights reserved.</p>
+      <div style="background:oklch(0.16 0.02 260);">
+        <div style="aspect-ratio:1; overflow:hidden;">
+          <img src="assets/images/silky-sifaka-photo.jpg" alt="A silky sifaka clinging to a tree trunk in Madagascar" style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <div style="padding:24px;">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:10px; color:oklch(0.58 0.09 145); letter-spacing:0.1em; margin-bottom:8px;">SPECIMEN NO. 04 · CRITICALLY ENDANGERED</div>
+          <div style="font-size:22px; margin-bottom:4px;">Silky Sifaka</div>
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:oklch(0.72 0.02 85); margin-bottom:14px; font-style:italic;">Propithecus candidus</div>
+          <p style="font-size:13.5px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0;">Fewer than 250 mature individuals remain in Madagascar's northeastern rainforest.</p>
+        </div>
+      </div>
+
     </div>
-  </footer>
+    <p style="margin:20px 0 0; font-family:'IBM Plex Mono', monospace; font-size:10.5px; line-height:1.7; color:oklch(0.4 0.02 85);">
+      Photos: <a href="https://commons.wikimedia.org/wiki/File:Fossa,_Kirindy_Forest,_Madagascar_(23715903529).jpg" style="color:oklch(0.4 0.02 85); border-bottom:1px solid currentColor;">Fossa</a> © Rod Waddington (CC BY-SA 2.0) ·
+      <a href="https://commons.wikimedia.org/wiki/File:Aye_aye_Frankfurt.jpg" style="color:oklch(0.4 0.02 85); border-bottom:1px solid currentColor;">Aye-Aye</a> © Elias Neideck (CC BY-SA 4.0) ·
+      <a href="https://commons.wikimedia.org/wiki/File:Radiated_tortoise_(Astrochelys_radiata)_Tsimanampetsotsa.jpg" style="color:oklch(0.4 0.02 85); border-bottom:1px solid currentColor;">Radiated Tortoise</a> © Charles J. Sharp (CC BY-SA 4.0) ·
+      <a href="https://commons.wikimedia.org/wiki/File:Propithecus_candidus_001.jpg" style="color:oklch(0.4 0.02 85); border-bottom:1px solid currentColor;">Silky Sifaka</a> © Jeff Gibbs (CC BY-SA 3.0) — via Wikimedia Commons
+    </p>
+  </div>
+
+  <!-- DISPATCHES -->
+  <div id="dispatches" style="padding:100px 56px; border-bottom:1px solid oklch(0.4 0.02 85 / 0.25);">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:48px; flex-wrap:wrap; gap:16px;">
+      <h2 style="margin:0; font-family:'Newsreader', serif; font-weight:500; font-size:clamp(30px,3vw,44px);">Dispatches</h2>
+      <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.12em; color:oklch(0.5 0.02 85);">03 — FROM THE FIELD</span>
+    </div>
+
+    <div style="display:flex; flex-direction:column;">
+      <div class="mf-dispatch-row" style="display:grid; grid-template-columns:140px 1fr; gap:32px; padding:28px 0; border-top:1px solid oklch(0.4 0.02 85 / 0.25);">
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:oklch(0.5 0.02 85); padding-top:4px;">FIELD JOURNAL<br/>KIANJAVATO, MG</div>
+        <div>
+          <div style="font-size:24px; margin-bottom:8px;">A day in the life of a researcher in Madagascar</div>
+          <p style="font-size:14.5px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0; max-width:640px;">Samuel David Merson, working alongside Dr Edward Louis at the Madagascar Biodiversity Partnership's Kianjavato camp, on the day a young fosa — later named Baloo — was captured, sampled, fitted with a GPS collar, and released back into Sanga Sanga forest.</p>
+        </div>
+      </div>
+      <div class="mf-dispatch-row" style="display:grid; grid-template-columns:140px 1fr; gap:32px; padding:28px 0; border-top:1px solid oklch(0.4 0.02 85 / 0.25);">
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:oklch(0.5 0.02 85); padding-top:4px;">ONGOING</div>
+        <div>
+          <div style="font-size:24px; margin-bottom:8px;">Tracking fosa movement through degraded landscapes</div>
+          <p style="font-size:14.5px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0; max-width:640px;">With less than 9% of Madagascar's original forest cover remaining, our GPS-collar research follows how fosa use fragmented, human-altered terrain.</p>
+        </div>
+      </div>
+      <div class="mf-dispatch-row" style="display:grid; grid-template-columns:140px 1fr; gap:32px; padding:28px 0; border-top:1px solid oklch(0.4 0.02 85 / 0.25); border-bottom:1px solid oklch(0.4 0.02 85 / 0.25);">
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:oklch(0.5 0.02 85); padding-top:4px;">ONGOING</div>
+        <div>
+          <div style="font-size:24px; margin-bottom:8px;">Community and partner-led conservation on the ground</div>
+          <p style="font-size:14.5px; line-height:1.6; color:oklch(0.72 0.02 85); margin:0; max-width:640px;">Working with local communities and partner organizations to establish protected areas and reduce human-fossa conflict across Madagascar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPPORT (paper form aesthetic) -->
+  <div id="support" style="background:oklch(0.95 0.015 85); color:oklch(0.16 0.02 260); padding:100px 56px;">
+    <div style="max-width:1000px; margin:0 auto;">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px; flex-wrap:wrap; gap:16px;">
+        <h2 style="margin:0; font-family:'Newsreader', serif; font-weight:500; font-size:clamp(30px,3vw,44px);">Field Requisition</h2>
+        <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.12em; color:oklch(0.4 0.02 85);">04 — SUPPORT THE WORK</span>
+      </div>
+      <p style="font-size:16px; line-height:1.6; color:oklch(0.3 0.02 260); max-width:600px; margin:0 0 56px;">Every contribution is logged against a real need in the field — from camera-trap batteries to ranger stipends to classroom materials.</p>
+
+      <div style="border:1.5px dashed oklch(0.4 0.02 260 / 0.5); padding:0;">
+        <div class="mf-support" style="display:grid; grid-template-columns:1fr 1fr 1fr;">
+
+          <div style="padding:36px; border-right:1.5px dashed oklch(0.4 0.02 260 / 0.5);">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; color:oklch(0.4 0.02 260); margin-bottom:18px;">TIER 01 — FIELD NOTES</div>
+            <div style="font-family:'Newsreader', serif; font-size:40px; margin-bottom:18px;">£25<span style="font-size:16px; color:oklch(0.4 0.02 260);">/mo</span></div>
+            <p style="font-size:13.5px; line-height:1.6; color:oklch(0.3 0.02 260); margin:0 0 28px;">Funds one camera-trap card and a month of trail-log transcription.</p>
+            <a href="#" style="display:block; text-align:center; border:1.5px solid oklch(0.16 0.02 260); padding:12px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:oklch(0.16 0.02 260);">SELECT →</a>
+          </div>
+
+          <div style="padding:36px; border-right:1.5px dashed oklch(0.4 0.02 260 / 0.5); background:oklch(0.62 0.14 45 / 0.08);">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; color:oklch(0.5 0.14 45); margin-bottom:18px;">TIER 02 — RANGER SUPPORT</div>
+            <div style="font-family:'Newsreader', serif; font-size:40px; margin-bottom:18px;">£75<span style="font-size:16px; color:oklch(0.4 0.02 260);">/mo</span></div>
+            <p style="font-size:13.5px; line-height:1.6; color:oklch(0.3 0.02 260); margin:0 0 28px;">Contributes toward a ranger's monthly stipend and field equipment.</p>
+            <a href="#" style="display:block; text-align:center; background:oklch(0.62 0.14 45); padding:12px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:oklch(0.16 0.02 260); font-weight:600;">SELECT →</a>
+          </div>
+
+          <div style="padding:36px;">
+            <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; color:oklch(0.4 0.02 260); margin-bottom:18px;">TIER 03 — EXPEDITION</div>
+            <div style="font-family:'Newsreader', serif; font-size:40px; margin-bottom:18px;">£250<span style="font-size:16px; color:oklch(0.4 0.02 260);">/mo</span></div>
+            <p style="font-size:13.5px; line-height:1.6; color:oklch(0.3 0.02 260); margin:0 0 28px;">Underwrites a full research trip component — transport, permits, or lab analysis.</p>
+            <a href="#" style="display:block; text-align:center; border:1.5px solid oklch(0.16 0.02 260); padding:12px; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; color:oklch(0.16 0.02 260);">SELECT →</a>
+          </div>
+
+        </div>
+        <div style="border-top:1.5px dashed oklch(0.4 0.02 260 / 0.5); padding:20px 36px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <span style="font-family:'IBM Plex Mono', monospace; font-size:12px; color:oklch(0.4 0.02 260);">PREFER A ONE-TIME GIFT OR A DIFFERENT AMOUNT?</span>
+          <a href="#" style="font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.08em; border-bottom:1px solid oklch(0.16 0.02 260); padding-bottom:2px; color:oklch(0.16 0.02 260);">GIVE ONCE →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div id="footer" style="background:oklch(0.12 0.015 260); padding:64px 56px 40px;">
+    <div class="mf-footer" style="display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:48px; margin-bottom:56px;">
+      <div>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+          <img src="assets/images/logo-mark.jpg" alt="Megafaun mark" style="width:28px; height:28px; object-fit:cover;" />
+          <span style="font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.12em; font-weight:600;">MEGAFAUN.ORG</span>
+        </div>
+        <p style="font-size:13.5px; line-height:1.7; color:oklch(0.5 0.02 85); max-width:340px;">A conservation organization advancing biodiversity through education, science, and habitat protection.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; color:oklch(0.62 0.14 45); margin-bottom:16px;">NAVIGATE</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14px;">
+          <a href="index.html" style="color:oklch(0.72 0.02 85);">Home</a>
+          <a href="fossa.html" style="color:oklch(0.72 0.02 85);">Fossa Info</a>
+          <a href="annual-report.html" style="color:oklch(0.72 0.02 85);">Annual Report</a>
+          <a href="about-us.html" style="color:oklch(0.72 0.02 85);">About Us</a>
+          <a href="projects.html" style="color:oklch(0.72 0.02 85);">Projects</a>
+          <a href="partners.html" style="color:oklch(0.72 0.02 85);">Our Partners</a>
+          <a href="how-to-apply.html" style="color:oklch(0.72 0.02 85);">How to Apply</a>
+          <a href="news.html" style="color:oklch(0.72 0.02 85);">News</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; color:oklch(0.62 0.14 45); margin-bottom:16px;">FIELD OFFICE</div>
+        <p style="font-size:14px; line-height:1.7; color:oklch(0.72 0.02 85); margin:0;">contact@megafaun.org</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid oklch(0.4 0.02 85 / 0.2); padding-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.06em; color:oklch(0.4 0.02 85);">
+      <span>© 2026 MEGAFAUN.ORG — REGISTERED CHARITY, ENGLAND &amp; WALES NO. 1151777</span>
+      <span>KINGDOM: ANIMALIA · CLASS: MAMMALIA · CAUSE: CONSERVATION</span>
+    </div>
+  </div>
+
+</div>
+
 </body>
 </html>
-
