@@ -115,18 +115,20 @@ a:hover { color: var(--accent); }
   justify-content: center;
   padding-top: 60px;
 }
-.rail-section .rail span {
+.rail-section .rail h2 {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   font-family: var(--mono);
   font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.16em;
   color: var(--accent);
+  margin: 0;
 }
 .rail-section .rail-content {
   padding: 72px;
 }
-.rail-section h2 {
+.rail-section .rail-content h2 {
   margin: 0 0 20px;
   font-family: var(--serif);
   font-weight: 500;
