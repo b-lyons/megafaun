@@ -1,0 +1,969 @@
+/* ============================================================================
+   MEGAFAUN.ORG — "Field Press" design system
+   ----------------------------------------------------------------------------
+   A risograph / field-poster look: warm bone paper, three flat inks that
+   overprint, letterpress-style rules, arch-cropped photographs, and
+   topographic contour grounds. Deliberately printed rather than screen-y.
+
+   Inks:   spruce (near-black green)  ·  flame (vermilion)  ·  lagoon (teal)
+   Paper:  bone, with a fixed grain overlay applied to the whole document.
+
+   Type:   Fraunces  — display. Used heavy, tight, with WONK on for the
+                       slightly-off, cut-by-hand feel.
+           Archivo   — everything else. Labels are set EXPANDED and uppercase
+                       rather than monospaced-and-tracked-out.
+   ========================================================================= */
+
+:root {
+  /* --- inks ------------------------------------------------------------- */
+  --paper:      #f2e9d8;
+  --paper-warm: #ece0c9;
+  --paper-deep: #e2d3b6;
+  --spruce:     #16271f;
+  --spruce-mid: #24463a;
+  --spruce-sub: #4a6b5d;
+  --flame:      #d9481d;
+  --flame-deep: #a8320f;
+  --lagoon:     #1f5f6b;
+  --lichen:     #8a9a2b;
+
+  /* --- roles ------------------------------------------------------------ */
+  --ink:        var(--spruce);
+  --ink-soft:   #3d564b;
+  --ink-faint:  #7a8c81;
+
+  --serif: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --sans:  'Archivo', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Type is measured against the page, not the viewport alone, so headlines
+     stay poster-sized on desktop without wrapping badly on a phone. */
+  --display-1: clamp(2.9rem, 8.4vw, 7rem);
+  --display-2: clamp(2.3rem, 5.4vw, 4.2rem);
+  --display-3: clamp(1.7rem, 3.1vw, 2.6rem);
+
+  --gutter: clamp(1.5rem, 5vw, 5rem);
+  --maxw: 1440px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 100;
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+body > .site-footer { margin-top: auto; }
+
+/* --- paper grain --------------------------------------------------------
+   A tiled noise plate multiplied into every ink area, so flat colour reads
+   as fibre rather than as a flat web background.
+
+   Deliberately NOT a fixed-position overlay: a full-viewport element with
+   mix-blend-mode forces the whole document onto one composited layer and
+   makes scrolling repaint everything. Blending it into each background
+   instead keeps scrolling on the compositor thread, and grain that travels
+   with the paper is what real print does anyway. */
+:root { --grain: url("../images/grain.png"); }
+
+body {
+  background-image: var(--grain);
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  background-blend-mode: multiply;
+}
+.band, .paper-section, .site-footer, .page-header, .site-nav,
+.tier-grid .tier, .partner-card {
+  background-image: var(--grain);
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  background-blend-mode: multiply;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+::selection { background: var(--flame); color: var(--paper); }
+
+:focus-visible {
+  outline: 3px solid var(--flame);
+  outline-offset: 3px;
+}
+
+/* ============================================================================
+   TYPE PRIMITIVES
+   ========================================================================= */
+
+.display, h1, h2, h3 {
+  font-family: var(--serif);
+  font-variation-settings: 'SOFT' 20, 'WONK' 1, 'opsz' 100;
+  font-weight: 800;
+  letter-spacing: -0.022em;
+  line-height: 0.94;
+  margin: 0;
+  text-wrap: balance;
+}
+
+em, .wonk {
+  font-style: italic;
+  font-variation-settings: 'SOFT' 60, 'WONK' 1;
+}
+
+/* Labels: expanded uppercase sans. Replaces the tracked-out monospace that
+   every other site of this kind uses. */
+.label, .eyebrow, .tag, .col-title, .meta, .mono, .legal, .chip {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 118;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.lead {
+  font-size: clamp(1.06rem, 1.5vw, 1.32rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 34ch;
+  margin: 0;
+}
+
+p { margin: 0 0 1.1em; }
+p:last-child { margin-bottom: 0; }
+
+/* ============================================================================
+   TOPOGRAPHIC GROUND
+   Concentric contour rings, offset from two centres, used behind hero and
+   header areas. Cheap, and reads as a survey map rather than a gradient.
+   ========================================================================= */
+.topo { position: relative; isolation: isolate; }
+.topo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.5;
+  background:
+    repeating-radial-gradient(ellipse 62% 48% at 76% 22%,
+      transparent 0 26px, rgba(22,39,31,0.16) 26px 28px),
+    repeating-radial-gradient(ellipse 70% 55% at 12% 88%,
+      transparent 0 34px, rgba(217,72,29,0.13) 34px 36px);
+}
+.topo.on-dark::before {
+  opacity: 0.42;
+  background:
+    repeating-radial-gradient(ellipse 62% 48% at 82% 18%,
+      transparent 0 30px, rgba(242,233,216,0.14) 30px 32px),
+    repeating-radial-gradient(ellipse 70% 55% at 8% 92%,
+      transparent 0 38px, rgba(217,72,29,0.28) 38px 40px);
+}
+
+/* ============================================================================
+   BUTTONS
+   Solid ink blocks with a hard offset shadow — a printed sticker, not a
+   material-design surface.
+   ========================================================================= */
+.btn, .btn-donate, .paper-section a.button {
+  display: inline-block;
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 112;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+  padding: 0.95em 1.7em;
+  border: 2.5px solid var(--ink);
+  background: var(--flame);
+  color: var(--paper);
+  cursor: pointer;
+  box-shadow: 5px 5px 0 var(--ink);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.btn:hover, .btn-donate:hover, .paper-section a.button:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--ink);
+  color: var(--paper);
+}
+.btn:active, .btn-donate:active { transform: translate(5px, 5px); box-shadow: 0 0 0 var(--ink); }
+
+.btn.ghost, .paper-section a.button:not(.solid) {
+  background: transparent;
+  color: var(--ink);
+}
+.btn.ghost:hover, .paper-section a.button:not(.solid):hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn.on-dark { border-color: var(--paper); box-shadow: 5px 5px 0 var(--paper); }
+.btn.on-dark:hover { box-shadow: 2px 2px 0 var(--paper); }
+
+/* A plain text link that underlines with an ink rule. */
+.link-ul {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-variation-settings: 'wdth' 112;
+  letter-spacing: 0.04em;
+  border-bottom: 3px solid var(--flame);
+  padding-bottom: 2px;
+}
+.link-ul:hover { border-bottom-color: var(--ink); }
+
+/* Inline prose links */
+.rail-content a, .article-body a, .prose a {
+  color: var(--flame-deep);
+  border-bottom: 2px solid currentColor;
+  font-weight: 600;
+}
+.rail-content a:hover, .article-body a:hover, .prose a:hover { background: var(--flame); color: var(--paper); border-color: var(--ink); }
+
+/* Status chips (IUCN categories) */
+.chip {
+  display: inline-block;
+  padding: 0.36em 0.7em;
+  border: 2px solid var(--ink);
+  background: var(--paper-warm);
+  font-size: 0.63rem;
+}
+.chip.vu { background: var(--lichen); color: var(--spruce); }
+.chip.en { background: var(--flame); color: var(--paper); }
+.chip.cr { background: var(--flame-deep); color: var(--paper); }
+
+/* ============================================================================
+   PHOTOGRAPHS
+   Every photo is printed, not placed: warmed, slightly de-saturated, with a
+   flame plate laid over it so the whole site's imagery shares one palette.
+   ========================================================================= */
+.plate {
+  position: relative;
+  overflow: hidden;
+  background: var(--spruce);
+  isolation: isolate;
+}
+.plate img, .plate video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.07) saturate(0.72) sepia(0.16) brightness(1.02);
+}
+.plate::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(200deg, rgba(217,72,29,0.24), rgba(31,95,107,0.2));
+  mix-blend-mode: multiply;
+}
+/* Arch crop — the signature shape. */
+.plate.arch { border-radius: 50vw 50vw 4px 4px; }
+/* ============================================================================
+   NAV
+   ========================================================================= */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 0.85rem var(--gutter);
+  background: var(--paper);
+  border-bottom: 3px solid var(--ink);
+}
+.site-nav .brand { display: flex; align-items: center; gap: 0.7rem; flex-shrink: 0; }
+.site-nav .brand img {
+  width: 38px; height: 38px;
+  border: 2.5px solid var(--ink);
+  object-fit: cover;
+}
+.site-nav .brand span {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 125;
+  font-weight: 800;
+  font-size: 1.02rem;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+.site-nav .links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.35rem;
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 112;
+  font-weight: 700;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.site-nav .links a {
+  padding: 0.3em 0.1em;
+  border-bottom: 3px solid transparent;
+  color: var(--ink-soft);
+}
+.site-nav .links a:hover { color: var(--ink); border-bottom-color: var(--flame); }
+.site-nav .links a.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+.site-nav .links a.nav-give {
+  background: var(--flame);
+  color: var(--paper);
+  border: 2.5px solid var(--ink);
+  padding: 0.42em 0.9em;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.site-nav .links a.nav-give:hover { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--ink); color: var(--paper); }
+
+/* ============================================================================
+   PAGE HEADER (interior pages)
+   ========================================================================= */
+.page-header {
+  padding: clamp(3.5rem, 7vw, 6.5rem) var(--gutter) clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 3px solid var(--ink);
+  background: var(--paper);
+}
+.page-header .eyebrow {
+  display: inline-block;
+  color: var(--paper);
+  background: var(--spruce);
+  padding: 0.45em 0.85em;
+  margin-bottom: 1.6rem;
+}
+.page-header h1 {
+  font-size: var(--display-2);
+  max-width: 18ch;
+  margin-bottom: 1.5rem;
+}
+.page-header .lead { max-width: 52ch; font-size: clamp(1.05rem, 1.5vw, 1.25rem); }
+
+/* ============================================================================
+   SECTIONS
+   ========================================================================= */
+.section {
+  padding: clamp(3.2rem, 6vw, 6rem) var(--gutter);
+  border-bottom: 3px solid var(--ink);
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+  padding-bottom: 1.1rem;
+  margin-bottom: clamp(2rem, 4vw, 3.4rem);
+  border-bottom: 3px solid var(--ink);
+}
+.section-head h2 { font-size: var(--display-3); }
+.section-head .tag { color: var(--flame-deep); padding-bottom: 0.35rem; }
+
+/* Rail section: the numbered vertical-rail layout is replaced by a wide
+   left-hand heading column that stacks cleanly. */
+.rail-section {
+  display: grid;
+  grid-template-columns: minmax(200px, 26%) 1fr;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(2.6rem, 5vw, 4.5rem) var(--gutter);
+  border-bottom: 3px solid var(--ink);
+  align-items: start;
+}
+.rail-section .rail { position: sticky; top: 5.5rem; }
+.rail-section .rail h2 {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 118;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: clamp(0.98rem, 1.5vw, 1.25rem);
+  line-height: 1.15;
+  padding-top: 0.9rem;
+  border-top: 9px solid var(--flame);
+  max-width: 14ch;
+}
+.rail-section .rail-content { font-size: 1.12rem; line-height: 1.68; max-width: 68ch; }
+.rail-section .rail-content > p:first-child { margin-top: -0.25em; }
+.rail-section .rail-content h2 { font-size: var(--display-3); margin-bottom: 1rem; }
+
+/* A full-bleed ink band. */
+.band {
+  background: var(--spruce);
+  color: var(--paper);
+  padding: clamp(3.4rem, 7vw, 6.5rem) var(--gutter);
+  border-bottom: 3px solid var(--ink);
+}
+.band .lead, .band p { color: rgba(242,233,216,0.82); }
+.band .tag, .band .label { color: var(--flame); }
+
+/* Light "paper" section — kept for compatibility; now a deeper paper tint. */
+.paper-section {
+  background: var(--paper-warm);
+  color: var(--ink);
+  padding: clamp(3.4rem, 6vw, 6rem) var(--gutter);
+  border-bottom: 3px solid var(--ink);
+}
+.paper-section .inner { max-width: var(--maxw); margin: 0 auto; }
+.paper-section p.intro { max-width: 56ch; color: var(--ink-soft); margin: 0 0 2.6rem; font-size: 1.08rem; }
+
+/* ============================================================================
+   LISTS
+   ========================================================================= */
+.field-list { list-style: none; padding: 0; margin: 0; }
+.field-list li {
+  position: relative;
+  padding: 0.72rem 0 0.72rem 2.3rem;
+  border-top: 1.5px solid rgba(22,39,31,0.28);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.field-list li:last-child { border-bottom: 1.5px solid rgba(22,39,31,0.28); }
+.field-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.25rem;
+  width: 1.35rem;
+  height: 5px;
+  background: var(--flame);
+}
+
+/* ============================================================================
+   SPECIES CARDS
+   Staggered rather than a flat 4-up grid, so the row reads as a printed
+   plate arrangement instead of a dashboard.
+   ========================================================================= */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.25rem, 2.4vw, 2.2rem);
+}
+.card-grid .card { background: transparent; }
+.card-grid .card:nth-child(even) { margin-top: clamp(1.5rem, 3.5vw, 3.5rem); }
+.card-grid .card .thumb {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--spruce);
+  border: 3px solid var(--ink);
+  border-radius: 50vw 50vw 4px 4px;
+  isolation: isolate;
+}
+.card-grid .card .thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: contrast(1.07) saturate(0.74) sepia(0.15);
+  transition: transform 0.5s ease;
+}
+.card-grid .card:hover .thumb img { transform: scale(1.045); }
+.card-grid .card .thumb::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(200deg, rgba(217,72,29,0.22), rgba(31,95,107,0.18));
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.card-grid .card .body { padding: 1.1rem 0 0; }
+.card-grid .card .kicker { margin-bottom: 0.7rem; }
+.card-grid .card .title {
+  font-family: var(--serif);
+  font-variation-settings: 'SOFT' 20, 'WONK' 1;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.02;
+  margin: 0 0 0.15rem;
+}
+.card-grid .card .latin {
+  font-family: var(--serif);
+  font-style: italic;
+  font-variation-settings: 'SOFT' 60, 'WONK' 1;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--flame-deep);
+  margin-bottom: 0.7rem;
+}
+.card-grid .card p { font-size: 0.9rem; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+
+/* ============================================================================
+   DISPATCH ROWS
+   ========================================================================= */
+.dispatch-row {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 22ch) 1fr;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: start;
+  padding: clamp(1.4rem, 2.6vw, 2.2rem) 0;
+  border-top: 3px solid var(--ink);
+}
+.dispatch-row:last-of-type { border-bottom: 3px solid var(--ink); }
+a.dispatch-row { transition: background 0.15s ease; }
+a.dispatch-row:hover { background: var(--paper-warm); }
+a.dispatch-row:hover .title { color: var(--flame-deep); }
+.dispatch-row .num {
+  font-family: var(--serif);
+  font-variation-settings: 'WONK' 1;
+  font-weight: 800;
+  font-size: 2.4rem;
+  line-height: 0.8;
+  color: var(--flame);
+}
+.dispatch-row .meta { color: var(--ink-faint); padding-top: 0.35rem; }
+.dispatch-row .title {
+  font-family: var(--serif);
+  font-variation-settings: 'SOFT' 20, 'WONK' 1;
+  font-weight: 800;
+  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+  line-height: 1.06;
+  margin: 0 0 0.55rem;
+}
+.dispatch-row p { font-size: 0.98rem; line-height: 1.6; color: var(--ink-soft); max-width: 62ch; margin: 0; }
+
+/* ============================================================================
+   SUPPORT TIERS — printed tickets with a perforated edge
+   ========================================================================= */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.2rem, 2.4vw, 2rem);
+  border: 0;
+}
+.tier-grid .tier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.6rem, 2.6vw, 2.3rem);
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+/* perforation across the top of each ticket */
+.tier-grid .tier::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 4.6rem;
+  height: 3px;
+  background: repeating-linear-gradient(to right,
+    var(--ink) 0 9px, transparent 9px 18px);
+  opacity: 0.55;
+}
+.tier-grid .tier.featured { background: var(--spruce); color: var(--paper); }
+.tier-grid .tier.featured .kicker { color: var(--flame); }
+.tier-grid .tier.featured p { color: rgba(242,233,216,0.82); }
+.tier-grid .tier.featured::before { background: repeating-linear-gradient(to right, var(--paper) 0 9px, transparent 9px 18px); }
+.tier-grid .tier .kicker { margin-bottom: 1.2rem; color: var(--flame-deep); }
+.tier-grid .tier .price {
+  font-family: var(--serif);
+  font-variation-settings: 'SOFT' 20, 'WONK' 1;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 4.4vw, 3.6rem);
+  line-height: 1;
+  margin: 1.9rem 0 1rem;
+}
+.tier-grid .tier .price span { font-family: var(--sans); font-weight: 700; font-size: 0.92rem; opacity: 0.6; }
+.tier-grid .tier p { font-size: 0.94rem; line-height: 1.55; color: var(--ink-soft); margin: 0 0 1.8rem; }
+.tier-grid .tier .btn { margin-top: auto; text-align: center; }
+.tier-grid .tier.featured .btn { background: var(--flame); border-color: var(--paper); box-shadow: 5px 5px 0 var(--paper); }
+.tier-grid .tier.featured .btn:hover { box-shadow: 2px 2px 0 var(--paper); }
+
+/* ============================================================================
+   MEDIA BANNER
+   ========================================================================= */
+.field-media {
+  border-bottom: 3px solid var(--ink);
+  background: var(--spruce);
+  position: relative;
+  isolation: isolate;
+}
+.field-media img {
+  width: 100%;
+  display: block;
+  max-height: 62vh;
+  object-fit: cover;
+  filter: contrast(1.07) saturate(0.72) sepia(0.16);
+}
+.field-media::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(200deg, rgba(217,72,29,0.22), rgba(31,95,107,0.18));
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+/* ============================================================================
+   LONG-FORM ARTICLE
+   ========================================================================= */
+.article-body {
+  max-width: 68ch;
+  font-size: 1.12rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+.article-body p { margin: 0 0 1.35em; }
+.article-body > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--serif);
+  font-variation-settings: 'SOFT' 20, 'WONK' 1;
+  font-weight: 800;
+  font-size: 4.2em;
+  line-height: 0.78;
+  padding: 0.06em 0.1em 0 0;
+  color: var(--flame);
+}
+
+/* ============================================================================
+   FOOTER
+   ========================================================================= */
+.site-footer {
+  background: var(--spruce);
+  color: var(--paper);
+  padding: clamp(3rem, 5vw, 4.5rem) var(--gutter) 0;
+  overflow: hidden;
+}
+.site-footer .grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(2.5rem, 4vw, 3.5rem);
+}
+.site-footer .brand { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.1rem; }
+.site-footer .brand img { width: 34px; height: 34px; border: 2px solid var(--paper); object-fit: cover; }
+.site-footer .brand span {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 125;
+  font-weight: 800;
+  font-size: 0.98rem;
+  text-transform: uppercase;
+}
+.site-footer p { font-size: 0.95rem; line-height: 1.65; color: rgba(242,233,216,0.72); max-width: 38ch; }
+.site-footer .col-title { color: var(--flame); margin-bottom: 1rem; }
+.site-footer .col-links { display: flex; flex-direction: column; gap: 0.55rem; font-size: 0.98rem; }
+.site-footer .col-links a { color: rgba(242,233,216,0.82); width: fit-content; border-bottom: 2px solid transparent; }
+.site-footer .col-links a:hover { color: var(--paper); border-bottom-color: var(--flame); }
+.site-footer .contact { font-size: 0.98rem; color: rgba(242,233,216,0.82); }
+.site-footer .legal {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  padding: 1.2rem 0;
+  border-top: 1.5px solid rgba(242,233,216,0.25);
+  color: rgba(242,233,216,0.5);
+  font-size: 0.66rem;
+}
+/* Oversized outlined wordmark sitting on the bottom edge, poster-style.
+   Drawn as SVG with textLength so it spans the column exactly at any width —
+   a CSS font-size can only approximate that, and lands mid-letter. */
+.footer-mark { display: block; margin: 0.6rem 0 0; user-select: none; }
+.footer-mark svg { display: block; width: 100%; height: auto; overflow: visible; }
+.footer-mark text {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 125;
+  font-weight: 800;
+  font-size: 100px;
+  fill: none;
+  stroke: rgba(242,233,216,0.34);
+  stroke-width: 1.6;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ========================================================================= */
+@media (max-width: 1100px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+  .card-grid .card:nth-child(even) { margin-top: 0; }
+  .card-grid .card:nth-child(2) { margin-top: clamp(1.5rem, 3.5vw, 3rem); }
+  .card-grid .card:nth-child(4) { margin-top: clamp(1.5rem, 3.5vw, 3rem); }
+  .tier-grid { grid-template-columns: 1fr; }
+  .site-footer .grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 820px) {
+  .rail-section { grid-template-columns: 1fr; }
+  .rail-section .rail { position: static; }
+  .rail-section .rail h2 { max-width: none; }
+  .dispatch-row { grid-template-columns: 3rem 1fr; }
+  .dispatch-row .meta { grid-column: 2; padding-top: 0; margin-bottom: 0.4rem; }
+  .site-footer .grid { grid-template-columns: 1fr; }
+}
+/* On a phone the eight-item nav wraps to three rows; sticking that to the top
+   would permanently eat a third of the screen. Below 820px it scrolls
+   horizontally on one line and stays put instead. */
+@media (max-width: 820px) {
+  .site-nav {
+    position: relative;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+    padding: 0.8rem 0 0;
+  }
+  .site-nav .brand { padding: 0 var(--gutter); }
+  .site-nav .links {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 1.1rem;
+    padding: 0 var(--gutter) 0.55rem;
+  }
+  .site-nav .links::-webkit-scrollbar { display: none; }
+  .site-nav .links a { white-space: nowrap; flex: 0 0 auto; }
+  /* Lift the CTA out of the scrolling strip so it is always on screen. */
+  .site-nav .links a.nav-give {
+    position: absolute;
+    top: 0.85rem;
+    right: var(--gutter);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  /* Fade the right edge so the strip reads as scrollable. Painted as an
+     overlay rather than a mask on .links, because a mask there would also
+     clip the absolutely-positioned Donate button out of view. */
+  .site-nav::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    width: 3.2rem;
+    height: 2.4rem;
+    background: linear-gradient(to right, rgba(242,233,216,0), var(--paper));
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 620px) {
+  body { font-size: 16px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .card-grid .card { margin-top: 0 !important; }
+  .site-nav { padding: 0.7rem var(--gutter); }
+  .site-nav .links { gap: 0.35rem 0.9rem; font-size: 0.68rem; }
+  .section-head { align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* ============================================================================
+   PARTNER CARDS (partners.html)
+   ========================================================================= */
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 360px));
+  gap: clamp(1.2rem, 2.4vw, 2rem);
+}
+.partner-card {
+  display: block;
+  padding: clamp(1.6rem, 2.6vw, 2.2rem);
+  background: var(--paper-warm);
+  border: 3px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--ink);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.partner-card:hover { transform: translate(3px, 3px); box-shadow: 4px 4px 0 var(--flame); }
+.partner-card img {
+  width: 68px; height: 68px;
+  object-fit: contain;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 7px;
+  margin-bottom: 1.3rem;
+}
+.partner-card .kicker {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 118;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+  font-size: 0.7rem;
+  color: var(--flame-deep);
+  margin-bottom: 0.5rem;
+}
+.partner-card h3 { font-size: 1.6rem; margin: 0 0 0.5rem; }
+.partner-card p { font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); margin: 0 0 1.2rem; }
+
+/* ============================================================================
+   HOME PAGE
+   ========================================================================= */
+.hero {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  padding: clamp(3rem, 6vw, 6rem) var(--gutter) clamp(3.5rem, 6vw, 6rem);
+  border-bottom: 3px solid var(--ink);
+}
+.hero .eyebrow {
+  display: inline-block;
+  border: 2.5px solid var(--ink);
+  background: var(--paper);
+  padding: 0.45em 0.85em;
+  margin-bottom: clamp(1.4rem, 2.6vw, 2.2rem);
+}
+.hero h1 {
+  font-size: var(--display-1);
+  max-width: 12ch;
+  margin-bottom: clamp(1.4rem, 2.4vw, 2rem);
+}
+.hero h1 .flame { color: var(--flame); }
+.hero .lead { max-width: 46ch; margin-bottom: clamp(1.8rem, 3vw, 2.6rem); }
+.hero-actions { display: flex; align-items: center; gap: clamp(1.2rem, 3vw, 2.2rem); flex-wrap: wrap; }
+
+.hero-figure { position: relative; }
+.hero-figure .plate {
+  aspect-ratio: 4 / 5;
+  border: 3px solid var(--ink);
+  border-radius: 50vw 50vw 6px 6px;
+}
+.hero-figure::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translate(18px, 18px);
+  background: var(--flame);
+  border-radius: 50vw 50vw 6px 6px;
+  z-index: -1;
+}
+.hero-caption {
+  position: absolute;
+  left: 0;
+  bottom: -2.4rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-variation-settings: 'SOFT' 60, 'WONK' 1;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+/* Rotating ink stamp */
+.stamp {
+  position: absolute;
+  right: -1.6rem;
+  top: -1.6rem;
+  width: clamp(104px, 13vw, 158px);
+  height: clamp(104px, 13vw, 158px);
+  z-index: 3;
+}
+/* Set on a slight angle, the way a rubber stamp lands. Not animated —
+   a permanently spinning badge reads as a gimmick and never settles. */
+.stamp svg { width: 100%; height: 100%; transform: rotate(-9deg); }
+.stamp text {
+  font-family: var(--sans);
+  font-variation-settings: 'wdth' 112;
+  font-weight: 800;
+  font-size: 13.5px;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  fill: var(--spruce);
+}
+
+/* Fact band */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3.5vw, 3.5rem);
+}
+.facts .fact { border-top: 9px solid var(--flame); padding-top: 1.1rem; }
+.facts .fact .n {
+  font-family: var(--serif);
+  font-variation-settings: 'SOFT' 20, 'WONK' 1;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.55rem;
+}
+.facts .fact p { font-size: 0.98rem; line-height: 1.5; max-width: 26ch; margin: 0; }
+
+/* Mission */
+.mission-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-variation-settings: 'SOFT' 60, 'WONK' 1;
+  font-weight: 600;
+  font-size: clamp(1.45rem, 3vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  max-width: 24ch;
+  margin: 0;
+  text-wrap: balance;
+}
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+.pillars { display: flex; flex-direction: column; gap: 1.6rem; }
+.pillar { display: grid; grid-template-columns: 3.2rem 1fr; gap: 1.2rem; padding-top: 1.2rem; border-top: 3px solid var(--ink); }
+.pillar .n {
+  font-family: var(--serif);
+  font-variation-settings: 'WONK' 1;
+  font-weight: 800;
+  font-size: 1.9rem;
+  line-height: 0.85;
+  color: var(--flame);
+}
+.pillar h3 { font-family: var(--sans); font-variation-settings: 'wdth' 118; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; font-size: 0.92rem; margin: 0 0 0.4rem; }
+.pillar p { font-size: 0.96rem; line-height: 1.55; color: var(--ink-soft); margin: 0; max-width: 44ch; }
+
+/* Photo credits */
+.credits {
+  margin-top: 1.8rem;
+  font-size: 0.72rem;
+  line-height: 1.7;
+  color: var(--ink-faint);
+}
+.credits a { color: inherit; border-bottom: 1px solid currentColor; }
+.credits a:hover { color: var(--flame-deep); }
+
+/* Support closing note */
+.support-note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+  margin-top: clamp(1.6rem, 3vw, 2.4rem);
+  padding-top: 1.3rem;
+  border-top: 3px solid var(--ink);
+}
+.support-note p { margin: 0; max-width: 52ch; color: var(--ink-soft); font-size: 0.98rem; }
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero h1 { max-width: 14ch; }
+  .hero-figure { max-width: 460px; }
+  .hero-caption { position: static; display: block; margin-top: 3rem; }
+  .mission-grid { grid-template-columns: 1fr; }
+  .facts { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ---- long-form article head (projects.html) ---- */
+.article-head {
+  max-width: 68ch;
+  padding-bottom: 1.3rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  border-bottom: 3px solid var(--ink);
+}
+.article-head .meta { color: var(--ink-faint); margin-bottom: 0.9rem; }
+.article-head h2 {
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  margin: 0 0 0.7rem;
+}
+.article-head .byline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-variation-settings: 'SOFT' 60, 'WONK' 1;
+  font-size: 1.05rem;
+  color: var(--flame-deep);
+  margin: 0;
+}

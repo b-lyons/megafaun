@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="canonical" href="https://megafaun.org/fossa.html" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/field-journal.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100..125,400..800;1,100..125,400..800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..900,0..100,0..1;1,9..144,400..900,0..100,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/megafaun.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,22 +40,23 @@
 <div class="site-nav">
   <a href="index.html" class="brand">
     <img src="assets/images/logo-mark.svg" alt="Megafaun mark" />
-    <span>MEGAFAUN.ORG</span>
+    <span>Megafaun</span>
   </a>
   <nav class="links">
-    <a href="index.html">01 · HOME</a>
-    <a href="fossa.html" class="active">02 · FOSSA</a>
-    <a href="annual-report.html">03 · REPORT</a>
-    <a href="about-us.html">04 · ABOUT</a>
-    <a href="projects.html">05 · PROJECTS</a>
-    <a href="partners.html">06 · PARTNERS</a>
-    <a href="how-to-apply.html">07 · APPLY</a>
-    <a href="news.html">08 · NEWS</a>
+    <a href="index.html">Home</a>
+    <a href="fossa.html" class="active">The Fossa</a>
+    <a href="projects.html">Projects</a>
+    <a href="about-us.html">About</a>
+    <a href="partners.html">Partners</a>
+    <a href="how-to-apply.html">Grants</a>
+    <a href="news.html">News</a>
+    <a href="annual-report.html">Report</a>
+    <a href="index.html#support" class="nav-give">Donate</a>
   </nav>
 </div>
 
-<header class="page-header">
-  <div class="eyebrow">SPECIMEN NO. 01 · VULNERABLE · CRYPTOPROCTA FEROX</div>
+<header class="page-header topo">
+  <div class="eyebrow">Cryptoprocta ferox &middot; IUCN Vulnerable</div>
   <h1>The Fossa</h1>
   <p class="lead">Madagascar's largest native predator, and our conservation efforts to protect this remarkable species.</p>
 </header>
@@ -64,21 +66,21 @@
 </div>
 
 <section class="rail-section">
-  <div class="rail"><h2>BIOLOGY &amp; HABITAT</h2></div>
+  <div class="rail"><h2>Biology &amp; habitat</h2></div>
   <div class="rail-content">
     <p>The fossa is closely related to the mongoose family and has evolved to become Madagascar's largest predator. It inhabits forest habitats throughout the island, relying on a diverse diet ranging from lemurs to small reptiles.</p>
   </div>
 </section>
 
 <section class="rail-section">
-  <div class="rail"><h2>THREATS</h2></div>
+  <div class="rail"><h2>Threats</h2></div>
   <div class="rail-content">
     <p>Habitat loss, fragmentation, and human-wildlife conflict pose major threats to the fossa's survival. Deforestation, in particular, has drastically reduced suitable habitats for this elusive carnivore.</p>
   </div>
 </section>
 
 <section class="rail-section">
-  <div class="rail"><h2>CONSERVATION</h2></div>
+  <div class="rail"><h2>Conservation</h2></div>
   <div class="rail-content">
     <p>Several organizations, including ours, are working to establish protected areas, reduce human-fossa conflict, and engage local communities in conservation activities.</p>
   </div>
@@ -87,10 +89,10 @@
 <section class="section">
   <div class="section-head">
     <h2>Fossas in Action</h2>
-    <span class="tag">RARE FIELD FOOTAGE</span>
+    <span class="tag">Rare field footage</span>
   </div>
-  <p style="max-width:700px; font-size:15px; line-height:1.7; color:oklch(0.72 0.02 85); margin:0 0 32px;">Fossas are incredibly elusive animals, and there are very few publicly available images or videos of them in their natural habitat. We're privileged to share this rare footage captured by our staff and research partners during field work in Madagascar's forests.</p>
-  <video controls style="width:100%; max-width:900px; display:block; border:1px solid oklch(0.4 0.02 85 / 0.25);">
+  <p class="lead" style="max-width:62ch; margin:0 0 2rem;">Fossas are incredibly elusive animals, and there are very few publicly available images or videos of them in their natural habitat. We're privileged to share this rare footage captured by our staff and research partners during field work in Madagascar's forests.</p>
+  <video controls style="width:100%; max-width:900px; display:block; border:3px solid var(--ink); box-shadow:10px 10px 0 var(--flame);">
     <source src="assets/images/Fossas.m4v" type="video/mp4">
     Your browser does not support the video tag.
   </video>
@@ -99,15 +101,15 @@
 <section class="section" style="border-bottom:none;">
   <div class="section-head">
     <h2>How You Can Help</h2>
-    <span class="tag">GET INVOLVED</span>
+    <span class="tag">Get involved</span>
   </div>
-  <ul class="field-list" style="max-width:600px; margin-bottom:36px;">
+  <ul class="field-list" style="max-width:60ch; margin-bottom:2.4rem;">
     <li>Donate to our conservation fund</li>
     <li>Spread awareness through social media or community events</li>
     <li>Volunteer with local organizations working in Madagascar</li>
   </ul>
   <form action="https://buy.stripe.com/YOUR_STRIPE_CHECKOUT_LINK" method="POST">
-    <button type="submit" class="btn-donate">DONATE →</button>
+    <button type="submit" class="btn">Donate to the fund</button>
   </form>
 </section>
 
@@ -116,31 +118,39 @@
     <div>
       <div class="brand">
         <img src="assets/images/logo-mark.svg" alt="Megafaun mark" />
-        <span>MEGAFAUN.ORG</span>
+        <span>Megafaun</span>
       </div>
-      <p>A conservation organization advancing biodiversity through education, science, and habitat protection.</p>
+      <p>A UK registered charity advancing biodiversity through education, scientific study, and habitat protection &mdash; with a focus on Madagascar.</p>
+      <p style="margin-top:1.2rem;"><a href="index.html#support" class="btn on-dark">Support the work</a></p>
     </div>
     <div>
-      <div class="col-title">NAVIGATE</div>
+      <div class="col-title">Navigate</div>
       <div class="col-links">
         <a href="index.html">Home</a>
-        <a href="fossa.html">Fossa Info</a>
-        <a href="annual-report.html">Annual Report</a>
-        <a href="about-us.html">About Us</a>
+        <a href="fossa.html">The Fossa</a>
         <a href="projects.html">Projects</a>
-        <a href="partners.html">Our Partners</a>
-        <a href="how-to-apply.html">How to Apply</a>
+        <a href="about-us.html">About</a>
+        <a href="partners.html">Partners</a>
+        <a href="how-to-apply.html">Grants</a>
         <a href="news.html">News</a>
+        <a href="annual-report.html">Report</a>
       </div>
     </div>
     <div>
-      <div class="col-title">FIELD OFFICE</div>
+      <div class="col-title">Field office</div>
       <p class="contact">contact@megafaun.org</p>
+      <div class="col-title" style="margin-top:1.8rem;">Registration</div>
+      <p class="contact">Registered charity in England &amp; Wales<br/>No. 1151777 &middot; since 25 April 2013</p>
     </div>
   </div>
   <div class="legal">
-    <span>© 2026 MEGAFAUN.ORG — REGISTERED CHARITY, ENGLAND &amp; WALES NO. 1151777</span>
-    <span>KINGDOM: ANIMALIA · CLASS: MAMMALIA · CAUSE: CONSERVATION</span>
+    <span>&copy; 2026 Megafaun.org</span>
+    <span>Cryptoprocta ferox &middot; Madagascar</span>
+  </div>
+  <div class="footer-mark" aria-hidden="true">
+    <svg viewBox="0 0 1000 108" role="presentation">
+      <text x="0" y="100" textLength="1000" lengthAdjust="spacingAndGlyphs">MEGAFAUN</text>
+    </svg>
   </div>
 </footer>
 
